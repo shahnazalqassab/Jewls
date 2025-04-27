@@ -1,6 +1,6 @@
 # Jewls
 #### let's make a necklace
-![Jewls](360_F_99464137_rHZ7k2qOC6NAf7qDBptehQ9Aa89JzMLg.jpg)
+![Jewls](/Users/talalderbas/GA/Projects/Jewls/ReadMePic.jpg)
 ***
 
 ## Description
