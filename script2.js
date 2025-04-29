@@ -5,11 +5,14 @@ const gemsText = document.getElementById('Gemstones');
 
 const width = 20;
 const height = 20;
-let score = 0;
+let score = parseInt(localStorage.getItem("Score"));
+display.textContent = score;
+
 let cells = [];
-const levelGems = 5;
+const levelGems = 7;
 let gemsCollected = 0;
 let gemIndex = 0;
+gemsText.textContent = `Number of Gemstones needed to finish: ${levelGems-gemsCollected}`;
 
 // CREATING THE GRID
 for (let i = 0; i < width * height; i++){
@@ -20,17 +23,17 @@ for (let i = 0; i < width * height; i++){
 }
 
     // CREATING THE NEEDLE
-let needle = [200]; // THIS INDEXES OF THE MIDDLE OF THE GRID (three indexes)
+let needle = [202, 201, 200]; // THIS INDEXES OF THE MIDDLE OF THE GRID (three indexes)
 let direction = 1; // MAKING THE NEEDLE MOVE TO THE RIGHT
-
-
 
 
 
 // CREATING THE THREAD
 const drawThread = () => {
-    cells.forEach(cell => cell.classList.remove('needle'));
-    needle.forEach(index => cells[index].classList.add('needle'));
+
+        cells.forEach(cell => cell.classList.remove('needle'));
+        needle.forEach(index => cells[index].classList.add('needle'));
+
 }
 
 
@@ -79,7 +82,7 @@ if (gemsCollected !== levelGems){
         return;
     }
 }else{
-    gemsText.textContent = `You have collected the required gems, close the necklace`; 
+    gemsText.textContent = `You have collected the required gems, \n close the necklace`; 
     if((direction === 1 && tip % width === width-1) || // right wall
     (direction === -1 && tip % width === 0) || // left wall 
     (direction === width && tip >= width * (height -1)) || // bottom 
@@ -88,7 +91,8 @@ if (gemsCollected !== levelGems){
         alert(`Too bad, you almost finished the necklace :'( ` + score);
         return;
     }
-    else if (needle.includes(newTip)){
+    else if (needle.includes(newTip)){ 
+
         clearInterval(game)
         alert('LEVEL COMPLETED :D');
         return;
@@ -100,7 +104,7 @@ needle.unshift(newTip); // adding the stone to the beginning of the thread
 
     if (newTip === gemIndex){
         score += 10;
-        display.textContent = 'Score: ' + score;
+        display.textContent = score;
         gemsCollected++;
         gemsText.textContent = `Number of Gemstones needed to finish: ${levelGems-gemsCollected}`;
         placeGems();
@@ -116,7 +120,7 @@ needle.unshift(newTip); // adding the stone to the beginning of the thread
 // STARTING THE GAME
 drawThread();
 placeGems();
-const game = setInterval(move, 200);
+const game = setInterval(move, 150);
 
 
 // CAPTURING THE KEYBOARD MOVEMENTS

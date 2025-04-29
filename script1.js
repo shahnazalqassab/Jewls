@@ -10,6 +10,7 @@ let cells = [];
 const levelGems = 5;
 let gemsCollected = 0;
 let gemIndex = 0;
+gemsText.textContent = `Number of Gemstones needed to finish: ${levelGems-gemsCollected}`;
 
 // CREATING THE GRID
 for (let i = 0; i < width * height; i++){
@@ -24,14 +25,13 @@ let needle = [200]; // THIS INDEXES OF THE MIDDLE OF THE GRID (three indexes)
 let direction = 1; // MAKING THE NEEDLE MOVE TO THE RIGHT
 
 
-
-
-
 // CREATING THE THREAD
 const drawThread = () => {
-    cells.forEach(cell => cell.classList.remove('needle'));
-    needle.forEach(index => cells[index].classList.add('needle'));
-}
+
+        cells.forEach(cell => cell.classList.remove('needle'));
+        needle.forEach(index => cells[index].classList.add('needle'));
+
+};
 
 
 
@@ -88,9 +88,12 @@ if (gemsCollected !== levelGems){
         alert(`Too bad, you almost finished the necklace :'( ` + score);
         return;
     }
-    else if (needle.includes(newTip)){
+    else if (needle.includes(newTip)){ 
+
         clearInterval(game)
         alert('LEVEL COMPLETED :D');
+        localStorage.setItem("Score", score);
+        window.location.replace("level2.html"); // calling the second page
         return;
     }
 
